@@ -1,0 +1,14 @@
+$(SRCROOT)/../ios/EmbeddedFrameworks/iProov.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/SwiftyJSON.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/KeychainAccess.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/SocketIO.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/Starscream.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/TesseractOCR.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/AcuantIPLiveness.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/AcuantCommon.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/AcuantDocumentProcessing.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/AcuantHGLiveness.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/AcuantFaceMatch.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/AcuantImagePreparation.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/AcuantPassiveLiveness.framework
+$(SRCROOT)/../ios/EmbeddedFrameworks/AcuantEchipReader.framework
