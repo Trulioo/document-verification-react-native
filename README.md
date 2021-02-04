@@ -8,5 +8,5 @@ Obtain a license from support@trulioo.com
 Enter license number in the file below for iOS development  
 *ios/ReactNativeSample/AcuantConfig.plist*
 
-Enter license number in the file below for Android development
+Enter license number in the file below for Android development  
 *android/app/src/main/assets/acuant.config.xml*
