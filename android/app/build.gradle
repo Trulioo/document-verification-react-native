@@ -188,7 +188,7 @@ repositories {
     //Face Capture and Barcode reading. Only add if using acuantcamera or acuanthgliveness
     maven { url 'https://maven.google.com' }
     maven { url 'https://raw.githubusercontent.com/iProov/android/master/maven/' }
-    maven { url 'https://dl.bintray.com/acuant/Acuant' }
+    maven { url 'https://raw.githubusercontent.com/Acuant/AndroidSdkMaven/main/maven/' }
 }
 
 dependencies {
@@ -204,11 +204,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    implementation 'com.acuant:acuantcommon:11.4.9'
-    implementation 'com.acuant:acuantcamera:11.4.9'
-    implementation 'com.acuant:acuantimagepreparation:11.4.9'
-    implementation 'com.acuant:acuantdocumentprocessing:11.4.9'
-    implementation 'com.acuant:acuantfacecapture:11.4.9'
+    implementation "com.acuant:acuantcommon:$acuantSDKVersion"
+    implementation "com.acuant:acuantcamera:$acuantSDKVersion"
+    implementation "com.acuant:acuantimagepreparation:$acuantSDKVersion"
+    implementation "com.acuant:acuantdocumentprocessing:$acuantSDKVersion"
+    implementation "com.acuant:acuantfacecapture:$acuantSDKVersion"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

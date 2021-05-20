@@ -4,8 +4,8 @@ import AcuantCaptureIOS from './AcuantCaptureIOS';
 import AcuantCaptureAndroid from './AcuantCaptureAndroid';
 import Geolocation from 'react-native-geolocation-service';
 
-const androidVersion = 'AcuantAndroidV11.4.9';
-const iosVersion = 'AcuantIOSV11.4.7';
+const androidVersion = 'AcuantAndroidV11.4.12';
+const iosVersion = 'AcuantIOSV11.4.9';
 const document = 'DOCUMENT';
 const barcode = 'BARCODE';
 const passport = 'PASSPORT';
@@ -96,7 +96,7 @@ const getMessage = async (imageData) => {
 
   const message = {
     V: '1',
-    MODE: isAuto ? 'AUTO' : 'MANUAL',
+    MODE: isAuto || captureMode === selfie ? 'AUTO' : 'MANUAL',
     SYSTEM: platform,
     CAPTURESDK: captureSDK,
     TRULIOOSDK: captureMode,
