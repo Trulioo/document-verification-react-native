@@ -34,6 +34,16 @@ class AcuantIOS: NSObject, CameraCaptureDelegate, InitializationDelegate, Acuant
     var sharpness: Int?
     var glare: Int?
     var dpi: Int?
+    
+    init(sharpness: Int?, glare: Int?, dpi: Int?) {
+      self.image = ""
+      self.sharpness = sharpness
+      self.glare = glare
+      self.dpi = dpi
+    }
+    init() {
+      self.image = ""
+    }
   }
   
   private func resetData(){
@@ -55,13 +65,14 @@ class AcuantIOS: NSObject, CameraCaptureDelegate, InitializationDelegate, Acuant
         AcuantImagePreparation.evaluateImage(image: image.image!) {
             result, error in
           if (result != nil) {
-            self.jsResolve(self.encodeData(image: result!.image, details: result))
+            let imageData = ImageObj(sharpness: result!.sharpness, glare: result!.glare, dpi: result!.dpi)
+            self.jsResolve(self.encodeData(image: result!.image, imageData: imageData))
           } else {
             self.jsReject("FAIL", "ERROR, COULD NOT CROP IMAGE", nil)
           }
         }
       } else {
-        self.jsResolve(self.encodeData(image: image.image!, details: nil))
+        self.jsResolve(self.encodeData(image: image.image!, imageData: ImageObj()))
       }
     } else {
       jsReject("FAIL", "ERROR, NO IMAGE CAPTURED", nil)
@@ -72,16 +83,12 @@ class AcuantIOS: NSObject, CameraCaptureDelegate, InitializationDelegate, Acuant
     return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
   }
   
-  func encodeData(image: UIImage, details: AcuantImage?) -> String {
+  func encodeData(image: UIImage, imageData: ImageObj) -> String {
+    var returnObject = imageData
+    returnObject.image = "data:image/jpeg;base64," + self.convertImageToBase64String(img: image)
+    
     let jsonEncoder = JSONEncoder()
-    var returnObj = ImageObj(image:"",sharpness:nil,glare:nil,dpi:nil)
-    returnObj.image = "data:image/jpeg;base64," + self.convertImageToBase64String(img: image)
-    if (details != nil) {
-      returnObj.sharpness = details!.sharpness
-      returnObj.glare = details!.glare
-      returnObj.dpi = details!.dpi
-    }
-    let jsonData = try! jsonEncoder.encode(returnObj)
+    let jsonData = try! jsonEncoder.encode(returnObject)
     return String(data: jsonData, encoding: .utf8)!
   }
   
@@ -99,7 +106,8 @@ class AcuantIOS: NSObject, CameraCaptureDelegate, InitializationDelegate, Acuant
   
   func liveFaceCaptured(image: UIImage?) {
     if (image != nil) {
-      jsResolve(self.encodeData(image: image!, details: nil))
+      let imageData = ImageObj(sharpness: nil, glare: nil, dpi: (Int)(image!.size.width * image!.scale))
+      jsResolve(self.encodeData(image: image!, imageData: imageData))
     } else {
       jsReject("FAIL", "ERROR, NO IMAGE CAPTURED", nil)
     }

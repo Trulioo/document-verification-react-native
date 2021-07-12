@@ -78,11 +78,11 @@ class AcuantImageCapture(reactContextInput: ReactApplicationContext) : ReactCont
                                 val base64Image = bitmapTobase64(image.image)
                                 val resultObject = CaptureResult(base64Image, image.glare, image.sharpness, image.dpi)
                                 val jsonString: String = Gson().toJson(resultObject)
-                                capturePromise?.resolve(jsonString)
+                                capturePromise!!.resolve(jsonString)
                             }
 
                             override fun onError(error: Error) {
-                                capturePromise?.reject("FAIL", "Unable to crop image")
+                                capturePromise!!.reject("FAIL", "Unable to crop image")
                                 capturePromise = null
                             }
                         })
@@ -90,23 +90,24 @@ class AcuantImageCapture(reactContextInput: ReactApplicationContext) : ReactCont
                         val base64: String = Base64.encodeToString(bytes, Base64.DEFAULT)
                         val resultObject = CaptureResult("data:image/jpeg;base64,$base64")
                         val jsonString: String = Gson().toJson(resultObject)
-                        capturePromise?.resolve(jsonString)
+                        capturePromise!!.resolve(jsonString)
                         capturePromise = null
                     }
                 }
                 else {
-                    capturePromise?.reject("FAIL", "Unable to capture image")
+                    capturePromise!!.reject("FAIL", "Unable to capture image")
                     capturePromise = null
                 }
             } else if (requestCode == selfieRequestCode) {
                 if (resultCode == FaceCaptureActivity.RESPONSE_SUCCESS_CODE) {
-                    val bitmap = BitmapFactory.decodeFile(data?.getStringExtra(FaceCaptureActivity.OUTPUT_URL))
+                    val options: BitmapFactory.Options = BitmapFactory.Options()
+                    val bitmap = BitmapFactory.decodeFile(data?.getStringExtra(FaceCaptureActivity.OUTPUT_URL), options)
                     val base64 = bitmapTobase64(bitmap)
-                    val resultObject = CaptureResult(base64)
+                    val resultObject = CaptureResult(base64, null, null, options.outWidth)
                     val jsonString: String = Gson().toJson(resultObject)
-                    capturePromise?.resolve(jsonString)
+                    capturePromise!!.resolve(jsonString)
                 } else {
-                    capturePromise?.reject("FAIL", "Unable to capture image")
+                    capturePromise!!.reject("FAIL", "Unable to capture image")
                 }
                 capturePromise = null
             }

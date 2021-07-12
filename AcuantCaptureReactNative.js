@@ -104,10 +104,10 @@ const getMessage = async (imageData) => {
     IPADDRESS: ipAddress,
     GPSLATITUDE: '',
     GPSLONGITUDE: '',
-    AcuantHorizontalResolution: imageData.dpi || '',
-    AcuantVerticalResolution: imageData.dpi || '',
-    AcuantSharpnessMetric: imageData.sharpness || '',
-    AcuantGlareMetric: imageData.glare || '',
+    ACUANTHORIZONTALRESOLUTION: imageData.dpi || '',
+    ACUANTVERTICALRESOLUTION: imageData.dpi || '',
+    ACUANTSHARPNESSMETRIC: imageData.sharpness || '',
+    ACUANTGLAREMETRIC: imageData.glare || '',
   };
 
   try {
